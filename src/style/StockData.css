@@ -1,10 +1,12 @@
 /* StockData.css */
 
+/* Main container for the stock data component */
 .stock-data-container {
     display: flex;
     align-items: flex-start;
 }
 
+/* Left section containing filters */
 .filter-section {
     width: 300px;
     margin-right: 20px;
@@ -14,12 +16,12 @@
     padding: 20px;
 }
 
+/* Container for the search input */
 .search-container {
-    margin-left: 8%;
-    margin-right: -4%;
     margin-bottom: 20px;
 }
 
+/* Styles for input and select elements */
 input[type="text"],
 select {
     width: calc(100% - 20px); /* Adjust for padding */
@@ -30,31 +32,43 @@ select {
     margin-bottom: 10px;
 }
 
+/* Container for filter dropdowns */
 .filter-container {
     display: flex;
     flex-wrap: wrap;
 }
 
+/* Styles for individual filter dropdowns */
 .filter {
     width: 100%;
     font-size: 14px;
 }
 
+/* Styles for filter buttons (not used in JSX code) */
+.filter-button,
+select {
+    cursor: pointer;
+    background: rgb(31, 163, 235);;
+}
+
+/* Heading styles */
 h3 {
     margin-bottom: 10px;
     font-size: 16px;
-    font-weight: bold;
 }
 
+/* Container for the table */
 .table-container {
     flex-grow: 1;
 }
 
+/* Styles for the table */
 .stock-table {
     width: 100%;
     border-collapse: collapse;
 }
 
+/* Styles for table headers and cells */
 .stock-table th,
 .stock-table td {
     padding: 10px;
@@ -62,12 +76,13 @@ h3 {
     text-align: center;
 }
 
+/* Styles for table headers */
 .stock-table th {
-    background-color: rgb(31, 163, 235);;
+    background-color: rgb(31, 163, 235);
     font-weight: bold;
 }
 
-/* Alternating white and grey rows */
+/* Alternating row colors */
 .stock-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
@@ -76,7 +91,9 @@ h3 {
     background-color: #c5c0c0;
 }
 
+/* Media query for responsiveness */
 @media (max-width: 768px) {
+    /* Adjusting width for smaller screens */
     .filter-section {
         width: 100%;
         margin-right: 0;
