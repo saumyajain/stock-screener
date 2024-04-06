@@ -4,12 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import StocksForm from '../containers/StocksForm';
-import StocksList from '../containers/StocksList';
 import requestStockInfo from '../actions/searchedStockActions';
 
 function Details({ match }) {
   const state = useSelector(state => state.searchedStock);
   const dispatch = useDispatch();
+  const getPredictions = () => {
+    //mock data
+    return 'Strong buy';
+  }
 
   useEffect(() => {
     if (match.params.stock) {
@@ -64,7 +67,8 @@ function Details({ match }) {
         <div className="chart-info-wrapper">
           <div className="info-wrapper">
             <p className="info-title">Analyst Recommendation</p>
-                      </div>
+            <p className="recommendation">{getPredictions()}</p>
+          </div>
 
         </div>
       </div>

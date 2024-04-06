@@ -94,6 +94,13 @@ form {
   height: 100%;
 }
 
+.recommendation{
+  margin-top: 2rem;
+  color: green;
+  font-weight: 700;
+  font-size: 24px;
+}
+
 form input,
 form button {
   border: none;
