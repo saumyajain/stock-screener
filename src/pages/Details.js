@@ -63,87 +63,9 @@ function Details({ match }) {
 
         <div className="chart-info-wrapper">
           <div className="info-wrapper">
-            <p className="info-title">Ticker information</p>
-            <p className="last-price">
-              $
-              {state.stockInfo.price}
-            </p>
-            <div className="info-container border-bottom">
-              <span className="info-text">Change ($)</span>
-              <span className="info-data">
-                $
-                {state.stockInfo.change}
-              </span>
-            </div>
+            <p className="info-title">Analyst Recommendation</p>
+                      </div>
 
-            <div className="info-container border-bottom">
-              <span className="info-text">Previous Day High</span>
-              <span className="info-data">
-                $
-                {state.stockInfo.dayHigh}
-              </span>
-            </div>
-
-            <div className="info-container border-bottom">
-              <span className="info-text">Previous Day Low</span>
-              <span className="info-data">
-                $
-                {state.stockInfo.dayLow}
-              </span>
-            </div>
-
-            <div className="info-container border-bottom">
-              <span className="info-text">Year High</span>
-              <span className="info-data">
-                $
-                {state.stockInfo.yearHigh}
-              </span>
-            </div>
-
-            <div className="info-container border-bottom">
-              <span className="info-text">Year Low</span>
-              <span className="info-data">
-                $
-                {state.stockInfo.yearLow}
-              </span>
-            </div>
-
-            <div className="info-container border-bottom">
-              <span className="info-text">Next Earnings</span>
-              <span className="info-data">
-                {moment(state.stockInfo.earningsAnnouncement).format('LLL')}
-              </span>
-            </div>
-
-            <div className="info-container border-bottom">
-              <span className="info-text">Market Capitalization</span>
-              <span className="info-data">
-                $
-                {state.stockInfo.marketCap}
-              </span>
-            </div>
-
-            <div className="info-container border-bottom">
-              <span className="info-text">Shares Outstanding</span>
-              <span className="info-data">
-                {state.stockInfo.sharesOutstanding}
-              </span>
-            </div>
-
-            <div className="info-container border-bottom">
-              <span className="info-text">EPS</span>
-              <span className="info-data">{state.stockInfo.eps}</span>
-            </div>
-
-            <div className="info-container">
-              <span className="info-text">PE</span>
-              <span className="info-data">{state.stockInfo.pe}</span>
-            </div>
-          </div>
-          <div className="StocksList-container">
-            <h3>Also take a look at</h3>
-            <StocksList size={10} />
-          </div>
         </div>
       </div>
     );

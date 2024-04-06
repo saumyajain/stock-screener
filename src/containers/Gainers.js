@@ -1,89 +1,200 @@
+import React, {useEffect, useState} from 'react';
+import '../style/StockData.css';
 
-import '../style/StockData.css'; // Import CSS file for styling
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+const response = {
+    mcrst: {
+        company: 'Mcrst',
+        address1: 'One Microsoft Way',
+        city: 'Redmond',
+        state: 'WA',
+        zip: '98052-6399',
+        country: 'United States',
+        phone: '425 882 8080',
+        website: 'https://www.microsoft.com',
+        industry: 'Software - Infrastructure',
+        industryKey: 'software-infrastructure',
+        industryDisp: 'Software - Infrastructure',
+        sector: 'Technology',
+        sectorKey: 'technology',
+        sectorDisp: 'Technology',
+    },
+    sail: {
+        company: 'Sail',
+        address1: 'One Microsoft Way',
+        city: 'Redmond',
+        state: 'WA',
+        zip: '98052-6399',
+        country: 'United States',
+        phone: '425 882 8080',
+        website: 'https://www.microsoft.com',
+        industry: 'Software - Infrastructure',
+        industryKey: 'software-infrastructure',
+        industryDisp: 'Software - Infrastructure',
+        sector: 'Technology',
+        sectorKey: 'technology',
+        sectorDisp: 'Technology',
+    },
+};
+
+const filterOptions = {
+    address1: ['All', 'Option 1', 'Option 2', 'Option 3'],
+    city: ['All', 'Option A', 'Option B', 'Option C'],
+    state: ['All', 'Option X', 'Option Y', 'Option Z'],
+    zip: ['All', 'Option 111', 'Option 222', 'Option 333'],
+    country: ['All', 'Option USA', 'Option UK', 'Option Canada'],
+    phone: ['All', 'Option 123', 'Option 456', 'Option 789'],
+    website: ['All', 'Option https://1', 'Option https://2', 'Option https://3'],
+    industry: ['All', 'Option Software', 'Option Hardware', 'Option Services'],
+    sector: ['All', 'Option Tech', 'Option Finance', 'Option Healthcare'],
+};
 
 const StockData = () => {
-    const [data, setData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
+
     const [filters, setFilters] = useState({
-        date: '',
-        open: '',
-        high: '',
-        low: '',
-        close: '',
-        volume: '',
+        company: '',
+        address1: 'All',
+        city: 'All',
+        state: 'All',
+        zip: 'All',
+        country: 'All',
+        phone: 'All',
+        website: 'All',
+        industry: 'All',
+        sector: 'All',
     });
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://financialmodelingprep.com/api/v3/technical_indicator/1min/AAPL?type=sma&period=10&apikey=311f90063290e392d9dda6d1de9969de');
-                setData(response.data);
-                setFilteredData(response.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        setFilters({ ...filters, [name]: value });
+    const fetchResult = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/filter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(filters),
+            });
+            const filteredData = await response.json();
+            setData(filteredData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
 
     useEffect(() => {
-        const filterData = () => {
-            let filtered = [...data];
-            Object.keys(filters).forEach((key) => {
-                if (filters[key]) {
-                    filtered = filtered.filter((item) => item[key].toString().toLowerCase().includes(filters[key].toLowerCase()));
+        fetchResult();
+    }, [filters]);
+
+    const handleFilterChange = (filterType, value) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            [filterType]: value,
+        }));
+    };
+
+    const fetchData = async (filters) => {
+        // Here, you would replace this with your actual fetch call
+        // You would typically pass your filters as query parameters in the URL or in the request body
+        // For demonstration purposes, we're just using the response object and filtering it here
+        const filteredData = Object.entries(response).filter(([key, value]) => {
+            return Object.entries(filters).every(([filterKey, filterValue]) => {
+                if (filterKey === 'company') {
+                    return (
+                        filterValue === '' ||
+                        value[filterKey].toLowerCase().includes(filterValue.toLowerCase())
+                    );
+                } else {
+                    return (
+                        filterValue === 'All' ||
+                        (value[filterKey] &&
+                            value[filterKey].toLowerCase().includes(filterValue.toLowerCase()))
+                    );
                 }
             });
-            setFilteredData(filtered);
-        };
-        filterData();
-    }, [filters, data]);
+        });
+        setData(filteredData);
+    };
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetchData(filters);
+    }, [filters]);
+
+    const filteredResponse = Object.entries(response).filter(([key, value]) => {
+        return Object.entries(filters).every(([filterKey, filterValue]) => {
+            if (filterKey === 'company') {
+                return (
+                    filterValue === '' ||
+                    value[filterKey].toLowerCase().includes(filterValue.toLowerCase())
+                );
+            } else {
+                return (
+                    filterValue === 'All' ||
+                    (value[filterKey] &&
+                        value[filterKey].toLowerCase().includes(filterValue.toLowerCase()))
+                );
+            }
+        });
+    });
+
+    const handleSearchChange = (e) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            company: e.target.value,
+        }));
+    };
 
     return (
         <div className="stock-data-container">
-            <h2>Stock Data</h2>
-            <div className="filters">
-                <input type="text" name="date" placeholder="Filter Date" value={filters.date} onChange={handleFilterChange} />
-                <input type="text" name="open" placeholder="Filter Open" value={filters.open} onChange={handleFilterChange} />
-                <input type="text" name="high" placeholder="Filter High" value={filters.high} onChange={handleFilterChange} />
-                <input type="text" name="low" placeholder="Filter Low" value={filters.low} onChange={handleFilterChange} />
-                <input type="text" name="close" placeholder="Filter Close" value={filters.close} onChange={handleFilterChange} />
-                <input type="text" name="volume" placeholder="Filter Volume" value={filters.volume} onChange={handleFilterChange} />
+            <div className="filter-section">
+                <div className="search-container">
+                    <input
+                        type="text"
+                        id="company-search"
+                        value={filters.company}
+                        onChange={handleSearchChange}
+                        placeholder="Search Company"
+                    />
+                </div>
+                <div className="filter-container">
+                    {Object.keys(filterOptions).map((filterType, index) => (
+                        <div className={'filter'} key={index}>
+                            <select
+                                value={filters[filterType]}
+                                onChange={(e) => handleFilterChange(filterType, e.target.value)}
+                            >
+                                <option value="All">{filterType}</option>
+                                {filterOptions[filterType].map((option, index) => (
+                                    <option key={index} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    ))}
+                </div>
             </div>
-            <table className="stock-data">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Open</th>
-                    <th>High</th>
-                    <th>Low</th>
-                    <th>Close</th>
-                    <th>Volume</th>
-                    <th>SMA</th>
-                </tr>
-                </thead>
-                <tbody>
-                {filteredData.map((item, index) => (
-                    <tr key={index}>
-                        <td>{item.date}</td>
-                        <td>{item.open}</td>
-                        <td>{item.high}</td>
-                        <td>{item.low}</td>
-                        <td>{item.close}</td>
-                        <td>{item.volume}</td>
-                        <td>{item.sma}</td>
+            <div className="table-container">
+                <table className="stock-table">
+                    <thead>
+                    <tr>
+                        <th>Company</th>
+                        {Object.keys(filterOptions).map((filterType, index) => (
+                            <th key={index}>{filterType}</th>
+                        ))}
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {filteredResponse.map(([key, value]) => (
+                        <tr className='data-row' key={key}>
+                            <td>{value.company}</td>
+                            {Object.keys(filterOptions).map((filterType, index) => (
+                                <td key={index}>{value[filterType]}</td>
+                            ))}
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

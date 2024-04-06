@@ -37,7 +37,7 @@ ul {
 }
 
 ul a {
-  color: rgb(31, 163, 235);
+  color: #5364fb;
   font-weight: bold;
 }
 
@@ -65,10 +65,15 @@ li {
   margin: 20px auto;
 }
 
+.stock-screener-logo{
+  max-width: 50px;
+  margin: 3rem auto;
+}
+
 h1 {
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   font-size: 40px;
   font-weight: 900;
   color: rgb(31, 163, 235);
@@ -192,7 +197,7 @@ canvas {
 }
 
 .info-wrapper {
-  width: 45%;
+  width: 100%;
   margin: 0;
 }
 

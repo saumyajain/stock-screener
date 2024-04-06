@@ -1,26 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import StocksForm from '../containers/StocksForm';
+import myLogo from '../../src/images/myLogo.png';
 
 function Nav() {
   return (
     <nav>
       <ul>
-        <div className="logo" />
+        <li className='logo-icon'>
+          <img src={myLogo} alt="Logo" className='stock-screener-logo' />
+        </li>
         <Link to="/">
-          <li id="home">Market Overview</li>
+          <li id="home">Screener</li>
         </Link>
         <Link to="/details">
           <li id="details">Stock Details</li>
         </Link>
-        <Link to="/gainers">
-          <li id="gainers">Top Gainers</li>
-        </Link>
-        <li>
-          <div className="form-container-nav">
-            <StocksForm />
-          </div>
-        </li>
       </ul>
     </nav>
   );

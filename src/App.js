@@ -11,10 +11,9 @@ function App() {
       <div className="App">
         <Nav />
         <Switch>
-          <Route path="/" exact component={Catalog} />
+          <Route path="/" exact component={Gainers} />
           <Route path="/details" exact component={Details} />
           <Route path="/details/:stock" component={Details} />
-          <Route path="/gainers" component={Gainers}/>
         </Switch>
       </div>
     </Router>
