@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Nav from './components/Nav';
-import Catalog from './pages/Catalog';
 import Details from './pages/Details';
 import Gainers from './containers/Gainers';
 
